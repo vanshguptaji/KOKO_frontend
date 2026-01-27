@@ -1,0 +1,91 @@
+/* Input Container */
+.vetbot-input-container {
+  padding: 16px 20px 20px;
+  background: var(--bg-color);
+  border-top: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.vetbot-input-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 10px 10px 10px 20px;
+  transition: all 0.2s ease;
+}
+
+.vetbot-input-wrapper:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+}
+
+/* Textarea */
+.vetbot-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  resize: none;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 6px 0;
+  max-height: 120px;
+  font-family: inherit;
+  color: var(--text-color);
+  letter-spacing: -0.01em;
+}
+
+.vetbot-input:focus {
+  outline: none;
+}
+
+.vetbot-input::placeholder {
+  color: var(--text-dim);
+}
+
+.vetbot-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Send Button */
+.vetbot-send-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  background: var(--accent-gradient);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+}
+
+.vetbot-send-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.4);
+}
+
+.vetbot-send-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
+}
+
+.vetbot-send-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Input Hint */
+.vetbot-input-hint {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: center;
+}
