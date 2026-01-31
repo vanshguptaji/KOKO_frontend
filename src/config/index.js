@@ -2,7 +2,7 @@
 
 const config = {
   // API Base URL - can be overridden via environment variable
-  API_BASE_URL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api',
+  API_BASE_URL: import.meta.env.VITE_API_BASE_URL || 'https://koko-backend-1.onrender.com/api',
   
   // SDK Configuration defaults
   defaults: {
