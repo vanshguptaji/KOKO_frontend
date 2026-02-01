@@ -125,9 +125,25 @@ export const appointmentAPI = {
    * Get all appointments (Admin)
    * GET /api/appointments
    */
-  getAll: async (page = 1, limit = 20, status = null) => {
-    const params = { page, limit };
+  getAll: async (options = {}) => {
+    const { 
+      page = 1, 
+      limit = 20, 
+      status = null,
+      date = null,
+      startDate = null,
+      endDate = null,
+      search = null,
+      sortBy = 'scheduledDate',
+      sortOrder = 'asc'
+    } = options;
+    
+    const params = { page, limit, sortBy, sortOrder };
     if (status) params.status = status;
+    if (date) params.date = date;
+    if (startDate) params.startDate = startDate;
+    if (endDate) params.endDate = endDate;
+    if (search) params.search = search;
     
     const response = await api.get('/appointments', { params });
     return response.data;
@@ -153,11 +169,101 @@ export const appointmentAPI = {
   },
 
   /**
+   * Get available services and pet types
+   * GET /api/appointments/services
+   */
+  getServices: async () => {
+    const response = await api.get('/appointments/services');
+    return response.data;
+  },
+
+  /**
+   * Get available dates for the next N days
+   * GET /api/appointments/available-dates
+   */
+  getAvailableDates: async (days = 14) => {
+    const response = await api.get('/appointments/available-dates', { params: { days } });
+    return response.data;
+  },
+
+  /**
+   * Get available time slots for a specific date
+   * GET /api/appointments/available-slots/:date
+   */
+  getAvailableSlots: async (date) => {
+    const response = await api.get(`/appointments/available-slots/${date}`);
+    return response.data;
+  },
+
+  /**
+   * Create a new appointment
+   * POST /api/appointments
+   */
+  create: async (appointmentData) => {
+    const response = await api.post('/appointments', appointmentData);
+    return response.data;
+  },
+
+  /**
+   * Update an appointment
+   * PUT /api/appointments/:id
+   */
+  update: async (id, updateData) => {
+    const response = await api.put(`/appointments/${id}`, updateData);
+    return response.data;
+  },
+
+  /**
    * Update appointment status (Admin)
    * PATCH /api/appointments/:id/status
    */
   updateStatus: async (id, status) => {
     const response = await api.patch(`/appointments/${id}/status`, { status });
+    return response.data;
+  },
+
+  /**
+   * Cancel an appointment
+   * PATCH /api/appointments/:id/cancel
+   */
+  cancel: async (id, reason = '') => {
+    const response = await api.patch(`/appointments/${id}/cancel`, { reason });
+    return response.data;
+  },
+
+  /**
+   * Delete an appointment (Admin)
+   * DELETE /api/appointments/:id
+   */
+  delete: async (id) => {
+    const response = await api.delete(`/appointments/${id}`);
+    return response.data;
+  },
+
+  /**
+   * Get today's appointments
+   * GET /api/appointments/today
+   */
+  getToday: async () => {
+    const response = await api.get('/appointments/today');
+    return response.data;
+  },
+
+  /**
+   * Get upcoming appointments
+   * GET /api/appointments/upcoming
+   */
+  getUpcoming: async (limit = 10) => {
+    const response = await api.get('/appointments/upcoming', { params: { limit } });
+    return response.data;
+  },
+
+  /**
+   * Get appointments by date
+   * GET /api/appointments/date/:date
+   */
+  getByDate: async (date) => {
+    const response = await api.get(`/appointments/date/${date}`);
     return response.data;
   },
 

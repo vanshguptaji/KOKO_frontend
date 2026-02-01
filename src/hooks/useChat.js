@@ -151,14 +151,35 @@ export const useChat = () => {
 
         return response.data;
       } else {
-        throw new Error(response.error || 'Failed to get response');
+        // Handle API response with success: false
+        const errorMsg = response.error || 'Failed to get response';
+        throw new Error(errorMsg);
       }
     } catch (err) {
       if (err.name === 'AbortError') return;
 
-      const errorMessage = err.response?.data?.error || 
-        err.message ||
-        'Sorry, I encountered an error. Please try again.';
+      // Extract error message from various response formats
+      let errorMessage = 'Sorry, I encountered an error. Please try again.';
+      
+      if (err.response?.data) {
+        const errorData = err.response.data;
+        
+        // Check for validation errors array
+        if (errorData.validationErrors && Array.isArray(errorData.validationErrors)) {
+          // Format validation errors nicely
+          const validationMessages = errorData.validationErrors
+            .map(ve => `• ${ve.message}`)
+            .join('\n');
+          errorMessage = `⚠️ Validation Error:\n${validationMessages}`;
+        } else if (errorData.error) {
+          // Single error message
+          errorMessage = errorData.error;
+        } else if (errorData.message) {
+          errorMessage = errorData.message;
+        }
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
       
       setError(errorMessage);
       setMessages((prev) => [

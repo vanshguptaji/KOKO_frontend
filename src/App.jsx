@@ -1,10 +1,42 @@
+import { useState } from 'react';
 import { Chatbot } from './components/Chatbot';
-import { MessageCircle, Calendar, Plug, Bot, ClipboardList, Database, Palette, Sparkles } from 'lucide-react';
+import { Calendar } from './components/Calendar';
+import { MessageCircle, Calendar as CalendarIcon, Plug, Bot, ClipboardList, Database, Palette, Sparkles, LayoutDashboard, X } from 'lucide-react';
 import './App.css';
 
 function App() {
+  const [showDashboard, setShowDashboard] = useState(false);
+
+  if (showDashboard) {
+    return (
+      <div className="app">
+        <button 
+          className="dashboard-close-btn"
+          onClick={() => setShowDashboard(false)}
+          title="Close Dashboard"
+        >
+          <X size={20} />
+          Back to Home
+        </button>
+        <Calendar />
+        {/* Chatbot Widget */}
+        <Chatbot />
+      </div>
+    );
+  }
+
   return (
     <div className="app">
+      {/* Dashboard Toggle Button */}
+      <button 
+        className="dashboard-toggle-btn"
+        onClick={() => setShowDashboard(true)}
+        title="Open Appointments Dashboard"
+      >
+        <LayoutDashboard size={20} />
+        View Appointments
+      </button>
+
       {/* Demo Landing Page */}
       <header className="hero">
         <div className="hero-content">
@@ -26,7 +58,7 @@ function App() {
               <span>AI Q&A</span>
             </div>
             <div className="feature">
-              <span className="feature-icon"><Calendar size={18} /></span>
+              <span className="feature-icon"><CalendarIcon size={18} /></span>
               <span>Book Appointments</span>
             </div>
             <div className="feature">

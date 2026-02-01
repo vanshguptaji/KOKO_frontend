@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { Bot, User, Calendar, CheckCircle2 } from 'lucide-react';
+import { Bot, User, Calendar, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { MESSAGE_TYPES } from '../../hooks/useChat';
 import { formatRelativeTime } from '../../utils/dateUtils';
 import './ChatMessage.css';
@@ -19,11 +19,11 @@ const ChatMessage = memo(({ message }) => {
     // Handle italic text
     formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
     
+    // Handle bullet points (• or -)
+    formatted = formatted.replace(/^[•-] (.+)$/gm, '<span class="bullet-point">• $1</span>');
+    
     // Handle line breaks
     formatted = formatted.replace(/\n/g, '<br />');
-    
-    // Handle bullet points
-    formatted = formatted.replace(/^- (.+)$/gm, '• $1');
 
     return formatted;
   };

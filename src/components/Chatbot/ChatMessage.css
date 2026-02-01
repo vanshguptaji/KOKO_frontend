@@ -78,8 +78,15 @@
   color: #f87171;
   border-radius: 12px;
   font-size: 13px;
-  text-align: center;
+  text-align: left;
   border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 14px 18px;
+}
+
+.vetbot-message-error .vetbot-message-content .bullet-point {
+  display: block;
+  margin-left: 8px;
+  padding: 2px 0;
 }
 
 /* Message Content */
@@ -97,6 +104,12 @@
 
 .vetbot-message-content em {
   font-style: italic;
+}
+
+.vetbot-message-content .bullet-point {
+  display: block;
+  margin-left: 4px;
+  padding: 2px 0;
 }
 
 /* Message Time */
